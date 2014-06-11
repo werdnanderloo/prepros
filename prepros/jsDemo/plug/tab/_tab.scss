@@ -1,0 +1,26 @@
+@charset "UTF-8";
+//四个参数：tab按钮宽，tab按钮高，按钮位置，按钮背景
+@mixin tab($btnWidth,$btnHeight,$btnPosition:0 0,$bg:null){
+  position:relative;
+  overflow: hidden;
+  padding-top:$btnHeight - 1px;
+  .tab-button{
+    @include ib;
+    @include btn-size($btnWidth,$btnHeight);
+    @if $bg{
+      background:$bg;
+    }
+  }
+  .tab-btn{
+    position:absolute;
+    left:nth($btnPosition,1);
+    top:nth($btnPosition,2);
+    .cur{
+
+    }
+  }
+  .tab-con{
+
+  }
+
+}

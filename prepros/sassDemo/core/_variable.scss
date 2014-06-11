@@ -1,0 +1,314 @@
+@charset "utf-8";
+//prefix
+$prefix :    cT !default;
+
+//variable
+$leie7: true !default;//开启兼容ie
+$bootstrap:  true ;//开启响应式
+
+//font
+$font-family-sens-serif: "microsoft yahei", Helvetica, Arial, sans-serif;
+$font-family-serif:      Georgia, "Times New Roman", Times, serif;
+$font-family-monospace:  Menlo, Monaco, Consolas, "Courier New", monospace;
+
+$font-family-base:        #{$font-family-sens-serif};
+$font-size-base:          14px;
+$line-height-base:   1.2em;
+
+//main width页面主要宽度
+$main-width:              960px;
+$sec-width:               960px;
+$other-width:             1003px;
+
+$innerBoxMargin:          5px;//元素间隔
+//响应式总宽度
+$totle-width:             $main-width + $innerBoxMargin * 2;
+
+//color list颜色列表
+$grey:                  #eee;
+$gray:                  #ddd;
+$primary:               #0078E7;
+$orange:                #f60;
+$blue:                  #00a3cf;
+
+
+//字体
+@mixin font($size:null){
+  @if $size != null{
+    font-size: $size;
+  }
+  font-weight: bold;
+}
+//图片路径 background:bg("1_s.jpg","child/",center center,no-repeat);
+$imgurl:                "../images/";
+@function bg($imgname,$url:false,$position:center center,$repeat:no-repeat){
+  $img: $imgurl;
+  @if $url == false{
+    $img: $imgurl;
+  }
+  @else{
+    $img: $imgurl + $url;
+  }
+
+  @return url($img + $imgname) $position $repeat;
+}
+//边框
+@function bd($color,$width:1px,$type:solid){
+  @return $width $type $color;
+}
+//a内的元素宽高100%；
+@mixin aInner($width,$height,$elem){
+  display: block;
+  width:$width;
+  height:$height;
+
+  #{$elem}{
+    width:100%;
+    height: 100%;
+  }
+}
+
+
+//test
+@mixin bdtest(){
+  border:1px solid #000;
+}
+
+@mixin bgtest($bgcolor:#000){
+  background:$bgcolor;
+}
+
+//space间隔
+@mixin space($space:10px){
+  margin-bottom:$space;
+}
+
+//inline-block
+
+@mixin ib($vari:top){
+
+  display:inline-block;
+
+  @if $leie7{
+    *display: inline;
+    *zoom:1;
+  }
+  vertical-align: $vari;
+
+}
+
+%ib{
+  @include ib;
+}
+
+
+
+//height line-height
+@mixin theight($height){
+  height:$height;
+  line-height: $height;
+}
+
+//a hover focus
+@mixin linkhover($color){
+  &:hover,
+  &:focus{
+    color:$color;
+  }
+}
+
+//align-center元素居中
+@mixin horizontal-center{
+  margin-left:auto;
+  margin-right:auto;
+}
+
+%horizontal-center{
+  @include horizontal-center;
+}
+
+//浮动
+@mixin float($float:left){
+  float: $float;
+  display: inline;
+}
+
+//清除浮动clearfix
+%clearfix{
+  @if $leie7{
+    *zoom:1;
+  }
+
+  &:before{
+    content:"";
+    display: table;
+  }
+  &:after{
+    content:"";
+    display: table;
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+//背景半透明
+$filter:  true !default;
+$fTxtColor: #fff !default;
+@mixin bgcolor-alpha($bgcolor: rgba(0,0,0,.5),$txtColor:$fTxtColor){
+  color:$txtColor;
+  @if $filter{
+    filter:progid:DXImageTransform.Microsoft.gradient(enabled='true',startColorstr='#{ie-hex-str($bgcolor)}', endColorstr='#{ie-hex-str($bgcolor)}');
+  }@else{
+    background-color: #333;
+  }
+  background-color:$bgcolor;
+}
+
+//透明度
+@mixin opacity($opacity:50) {
+  opacity: $opacity / 100;
+  @if $filter{
+    filter: alpha(opacity=$opacity);
+  }
+}
+
+//image replace图片替换文本--Logo
+@mixin ir {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  @if $leie7 {
+    *text-indent: -150%;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+  }
+}
+%ir {
+  @include ir;
+}
+
+//标题截取文字
+@mixin singleline-ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap:normal;
+  @include text-overflow(ellipsis);
+}
+
+%singleline-ellipsis{
+  @include singleline-ellipsis;
+}
+
+//响应式的iframe  嵌入式视频,图片
+
+@mixin resMedia($width,$height,$elem){
+  position:relative;
+  padding-bottom:percentage($height / $width);
+  height: 0;
+  overflow: hidden;
+
+  #{$elem}{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+  }
+}
+
+//设置padding-bottom值来计算视频的纵横比例。在我们的示例中，宽高的比例是16:9，表示高度是宽度的56.25%。如果宽高比是4:3，我们设置padding-bottom值为75%；
+
+//img response
+%resImg{
+  max-width:100%;
+  height:auto;
+}
+
+//img link
+@mixin imgLink($width,$height,$imgwidth,$imgheight){
+  width:$width;
+  height:$height;
+  @if $imgheight == "" and $imgheight == ""{
+    img{
+      width:$width;
+      height:$height;
+    }
+  }
+
+  @else{
+    img{
+      width:$imgwidth;
+      height:$imgheight;
+    }
+  }
+
+}
+
+//响应式banner 保持高度
+@mixin resBanner($height){
+  overflow: hidden;
+  min-height: $height;
+
+  img{
+    width:100%;
+  }
+
+  @media screen and ( max-width:600px){
+    &{
+      img{
+        width:auto;
+        max-width: none;
+        height: $height;
+      }
+    }
+  }
+}
+//position 绝对定位
+
+
+//列表
+//$total:总宽度 $col:列数 $item:每个li宽度
+
+//@include list($main-width,2,230px);
+@mixin list($total,$col,$item:null){
+  $spaceNumber: $col - 1;
+  $spaceWidth:0;
+  @if $item != null{
+    $spaceWidth: floor(($total - $item * $col) / $spaceNumber);
+  }
+  $ulspace: 0 - $spaceWidth;
+  overflow: hidden;
+  ul{
+    margin-left:$ulspace;
+    @extend %clearfix;
+  }
+  li{
+    @include float;
+    width:$item;
+    overflow: hidden;
+    margin-left:$spaceWidth;
+  }
+}
+//@include listcss3(4,$main-width,230px);
+@mixin listcss3($col,$total,$item){
+  $spaceNumber: $col - 1;
+  $spaceWidth: floor(($total - $item * $col) / $spaceNumber);
+  @extend %clearfix;
+  li{
+    @include float;
+    width:$item;
+    overflow: hidden;
+    margin-right:$spaceWidth;
+  }
+  li:nth-child(#{$col}n){
+    margin-right:0;
+  }
+}
+
+
+

@@ -1,0 +1,68 @@
+@charset "UTF-8";
+$slideName:  slider !default;
+//六个参数：焦点图总体宽，焦点图总体高，item出现的位置，按钮出现的位置,每张图片宽，每张图片高
+@mixin slider($width,$height,$itemPosition:0 0,$btnPosition:50% 100px,$itemWidth:$width,$itemHeight:$height){
+  width:$width;
+  height:$height;
+  overflow: hidden;
+  position:relative;
+
+  .slide-item{
+    width:$itemWidth;
+    height:$itemHeight;
+    position: absolute;
+    left:nth($itemPosition,1);
+    top:nth($itemPosition,2);
+  }
+
+  .slide-btn{
+    position:absolute;
+    left:nth($btnPosition,1);
+    top:nth($btnPosition,2);
+
+    li{
+      @include float;
+      margin-right:5px;
+    }
+  }
+}
+
+//响应式幻灯
+//三个参数：幻灯最大宽度，item位置，按钮位置
+@mixin resSlider($itemWidth,$itemPosition:0 0,$btnPosition:50% 100px){
+  width:100%;
+  height:auto;
+  overflow: hidden;
+  position:relative;
+
+  .slide-item{
+    max-width: $itemWidth;
+    width:100%;
+    position: relative;
+    margin:0 auto;
+    left:nth($itemPosition,1);
+    top:nth($itemPosition,2);
+
+    img{
+      width:100%;
+      height: auto;
+    }
+  }
+
+  .slide-btn{
+    position:absolute;
+    left:nth($btnPosition,1);
+    top:nth($btnPosition,2);
+
+    li{
+      @include float;
+      margin-right:5px;
+      cursor: pointer;
+    }
+  }
+}
+
+##{$slideName}{
+  @include resSlider(900px,0 0,45% 80%);
+  background:#ddd;
+}

@@ -1,0 +1,19 @@
+@charset "UTF-8";
+$columns: 12;
+$gutter: 1.04%;
+
+@function grid-width($cols,$has-gutter:false){
+    @if $has-gutter{
+      @return percentage((1 / $columns) * $cols) - $gutter;
+    }
+    @else{
+      @return percentage((1 / $columns) * $cols);
+    }
+}
+
+
+
+
+
+
+

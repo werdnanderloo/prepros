@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+//三角形
+//<div class="triangle"></div>
+$tridir: top right bottom left;
+@mixin triangle($size,$color,$dirs){
+  display: block;
+  width:0;
+  height: 0;
+  border-width: $size;
+  line-height: 0;
+
+  $len: length($size);
+  @if $len == 1{
+    border-width:$size;
+  }
+  @else if $len == 4{
+    @for $v from 1 through 4{
+      $width: nth($size,$v);
+      $dirw: nth($tridir,$v);
+      border-#{$dirw}-width:$width;
+    }
+  }
+
+  @for $i from 1 through 4{
+    $dir:nth($tridir,$i);
+    $index:index($dirs,$dir);
+    @if $index {
+      border-#{$dir}-color:$color;
+      border-#{$dir}-style:solid;
+    }
+    @else{
+      border-#{$dir}-color:transparent;
+      border-#{$dir}-style:solid;
+      *border-#{$dir}-style:dashed;
+    }
+  }
+}
+//梯形
+@mixin trapezoid($width,$height,$heightSide,$color,$dir){
+  width:$width;
+  height: 0;
+  line-height: 0;
+
+  @if $dir == top{
+    border-top:$height solid $color;
+    border-bottom:0 solid $color;
+  }
+  @else if $dir == bottom{
+    border-top:0 solid $color;
+    border-bottom:$height solid $color;
+  }
+
+  border-right:$heightSide solid transparent;
+  *border-right:$heightSide dashed $color;
+
+  border-left:$heightSide solid transparent;
+  *border-left:$heightSide dashed $color;
+
+}
+
+//五边形
+//<div class="pentagon"><div></div></div>
+@mixin pentagon($width,$heightBottom,$heightTop,$heightSide,$color){
+  position: relative;
+  @include trapezoid($width,$heightBottom,$heightSide,$color,top);
+
+  $widthTop: ($width + $heightSide * 2) / 2;
+  div{
+    @include triangle(0 $widthTop  $heightTop $widthTop,$color,bottom);
+    position:absolute;
+    left:-$heightSide;
+    top:-($heightBottom + $heightTop);
+  }
+}
+
+//六边形
+//<div class="hexagon">
+//<div class="before"></div>
+//<div class="after"></div>
+//</div>
+@mixin hexagon($width,$height,$color,$theight){
+  width:$width;
+  height: $height;
+  background:$color;
+  position:relative;
+
+  .before{
+    position: absolute;
+    top: -$theight;
+    left: 0;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    @include triangle(0 $width / 2 $theight $width / 2,$color,bottom);
+  }
+
+  .after{
+    position: absolute;
+    bottom: -$theight;
+    left: 0;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    @include triangle($theight $width / 2 0 $width / 2,$color,top);
+  }
+
+}
+
+//八边形
+//<div class="octagon">
+//<div class="before"></div>
+//<div class="after"></div>
+//</div>
+@mixin octagon($width,$height,$color,$theight){
+  width: $width;
+  height: $height;
+  background: $color;
+  position: relative;
+
+  .before{
+    position:absolute;
+    top:-$theight;
+    left:0;
+    @include trapezoid($width - $theight * 2,$theight,$theight,$color,bottom);
+  }
+
+  .after{
+    position:absolute;
+    left:0;
+    bottom:-$theight;
+    @include trapezoid($width - $theight * 2,$theight,$theight,$color,top);
+  }
+}
+
+
+//实例
+//.triangle{@include triangle(50px,#f00,top);}//三角形
+//.trapezoid{@include trapezoid(50px,50px,20px,#f00,top);margin-left:200px;}//梯形
+//.pentagon {@include pentagon(50px,50px,40px,20px,#f00);}//五边形
+//.hexagon{margin-top:50px;margin-left:50px;@include hexagon(100px,55px,#f00,25px);}//六边形
+//.octagon{margin:50px;@include octagon(100px,45px,#f00,25px);}//八边形

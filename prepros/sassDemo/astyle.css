@@ -1,0 +1,530 @@
+@charset "UTF-8";
+#cateExample .list-cate-title {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+}
+
+#imgList li, #cateExample .list-li, #cateExample .list-cate {
+  *zoom: 1;
+}
+#imgList li:before, #cateExample .list-li:before, #cateExample .list-cate:before {
+  content: "";
+  display: table;
+}
+#imgList li:after, #cateExample .list-li:after, #cateExample .list-cate:after {
+  content: "";
+  display: table;
+  clear: both;
+  overflow: hidden;
+}
+
+#cTheader h1 a {
+  background-color: transparent;
+  border: 0;
+  overflow: hidden;
+  *text-indent: -150%;
+}
+#cTheader h1 a:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 150%;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url("../icon/icomoon.eot?nx1ttj");
+  src: url("../icon/icomoon.eot?#iefixnx1ttj") format("embedded-opentype"), url("../icon/icomoon.woff?nx1ttj") format("woff"), url("../icon/icomoon.ttf?nx1ttj") format("truetype"), url("../icon/icomoon.svg?nx1ttj#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'bootstrap';
+  src: url("../icon/glyphicons-halflings-regular.eot?nx1ttj");
+  src: url("../icon/glyphicons-halflings-regular.eot?#iefixnx1ttj") format("embedded-opentype"), url("../icon/glyphicons-halflings-regular.woff?nx1ttj") format("woff"), url("../icon/glyphicons-halflings-regular.ttf?nx1ttj") format("truetype"), url("../icon/glyphicons-halflings-regular.svg?nx1ttj#icomoon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+#iconbox {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#iconboxBoot {
+  font-family: 'bootstrap';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#iconbox span {
+  padding: 3px;
+}
+
+#iconboxBoot span {
+  padding: 3px;
+}
+
+/*! normalize.css v2.1.3 | MIT License | git.io/normalize */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+nav,
+section,
+summary {
+  display: block;
+}
+
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: "microsoft yahei", Helvetica, Arial, sans-serif;
+  background: #fff;
+  word-wrap: break-word;
+  word-break: break-all;
+  line-height: 1.2em;
+}
+
+h1, h2, h3, h4, h5, ul, ol, dl, dt, dd, p, blockquote, form {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  background: transparent;
+  text-decoration: none;
+  outline: none;
+  color: inherit;
+}
+
+a:focus {
+  outline: 0 none;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+i, em, b {
+  font-style: normal;
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 1em;
+  font-weight: normal;
+}
+
+ul, dl, ol {
+  list-style: none;
+}
+
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+img {
+  border: 0 none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+figure {
+  margin: 0;
+}
+
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+  border: 0;
+  padding: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/******clear float*******/
+.clearfix:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-table;
+}
+
+/* Hides from IE-mac \*/
+* html .clearfix {
+  height: 1%;
+}
+
+.clearfix {
+  display: block;
+}
+
+/* End hide from IE-mac */
+#wrapper {
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+#content, .content, #container {
+  max-width: 970px;
+  /*宽度960加上inner-box左右margin相加，为最大宽度值*/
+  margin: 0 auto;
+}
+
+#cTwrapper {
+  min-width: 960px;
+  margin: 0 auto;
+}
+
+#cTcontent {
+  width: 960px;
+  margin: 15px auto;
+}
+
+.inner {
+  overflow: hidden;
+  position: relative;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-title {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: middle;
+  text-align: right;
+}
+
+.form-text {
+  width: 150px;
+  height: 20px;
+  line-height: 20px;
+  border: 1px solid #bbbbbb;
+}
+
+.form-radio,
+.form-checkbox {
+  vertical-align: middle;
+}
+
+.form-area {
+  vertical-align: top;
+}
+
+#cTheader {
+  width: 100%;
+  min-width: 960px;
+  margin: 0 auto;
+  border-bottom: 1px solid #000;
+  background: #eeeeee;
+}
+#cTheader .inner {
+  width: 960px;
+  margin: 0 auto;
+}
+#cTheader h1 {
+  width: 250px;
+  height: 150px;
+  font-size: 25px;
+}
+#cTheader h1 a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(../images/logo.jpg) center center no-repeat;
+}
+
+#cTfooter {
+  width: 100%;
+  margin: 0 auto;
+}
+#cTfooter .cTdl {
+  width: 100%;
+}
+#cTfooter footer {
+  width: 100%;
+}
+#cTfooter .inner {
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+#cTfooter .inner .dlbox {
+  text-align: center;
+}
+#cTfooter .inner .dlbox li {
+  float: left;
+  display: inline;
+  width: 25%;
+}
+@media screen and (max-width: 600px) {
+  #cTfooter .inner .dlbox li {
+    width: 100%;
+  }
+}
+#cTfooter .inner .dlbox dl {
+  padding: 10px 0;
+}
+#cTfooter .inner .dlbox dt {
+  font-weight: bold;
+}
+#cTfooter .inner p {
+  text-align: center;
+}
+#cTfooter .cTdl {
+  border-bottom: 1px solid #000;
+}
+#cTfooter footer {
+  background: #f2f2f2;
+}
+
+.item-box {
+  width: 300px;
+  border: 1px solid #0078e7;
+}
+.item-box h3 {
+  height: 30px;
+  line-height: 30px;
+}
+.item-box h3 span {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  vertical-align: top;
+}
+.item-box h3 {
+  background: #ddd;
+}
+
+#txtList {
+  width: 250px;
+}
+#txtList li {
+  height: 1.8em;
+  line-height: 1.8em;
+  position: relative;
+}
+#txtList .list-title {
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  -moz-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+#txtList .list-time {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  color: #dddddd;
+}
+
+#imgList li {
+  overflow: hidden;
+  position: relative;
+}
+#imgList .list-img {
+  display: block;
+  width: 100px;
+  height: 100px;
+  float: left;
+  display: inline;
+}
+#imgList .list-img img {
+  width: 100%;
+  height: 100%;
+}
+#imgList .list-title, #imgList .list-txt, #imgList blockquote {
+  display: block;
+  margin-left: 120px;
+}
+
+#cateExample .list-li {
+  overflow: hidden;
+  position: relative;
+}
+#cateExample .list-cate-title {
+  float: left;
+  display: inline;
+  width: 100px;
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+}
+#cateExample .list-cate {
+  margin-left: 150px;
+}
+#cateExample .list-cate-li {
+  float: left;
+  display: inline;
+}
+#cateExample .list-cate-li a {
+  display: block;
+  width: 100%;
+  line-height: 25px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.table th, .table td {
+  padding: 8px;
+}
+.table thead th {
+  text-align: left;
+}
+
+.table-fixed {
+  table-layout: fixed;
+}
+
+.table-border th,
+.table-border td {
+  border: 1px solid #dddddd;
+}
+
+/*响应式模块内DIV设置*/
+.inner-box {
+  border: 1px solid #0078e7;
+  /*边框*/
+  margin: 5px 5px;
+  /*margin用来增加间隔*/
+  /*min-height: 250px;最小高度，视觉对齐*/
+}
+
+.row div {
+  height: 30px;
+  line-height: 30px;
+  background: #eee;
+}

@@ -1,0 +1,169 @@
+@charset "UTF-8";
+//-----------------------------------------------
+//IE10+ webkit radio checkbox select浏览器表单外观修正
+//-----------------------------------------------
+$formFix:   false ;//是否开启表单元素外观修正
+%inputshow{//去除表单默认外观
+  ::-ms-expand{
+    display: none;
+  }
+  ::-ms-check{
+    display: none;
+  }
+  ::-ms-clear{
+    display: none;
+  }
+
+  input,
+  select{
+    @include appearance(none);
+  }
+}
+
+@mixin cinput($width,$height,$bg,$bgcheck){//radio checkbox外观调整，四个参数：宽 高 背景 选中背景
+  width:$width;
+  height: $height;
+  background-image:$bg;
+  background-position:center center;
+  background-repeat:no-repeat;
+
+  &:checked{
+    background-image:$bgcheck;
+  }
+}
+
+$chsize:    18px 18px;//radio checkbox宽高设置
+$radiobg:   url("") url("");//两个参数：radio默认外观 radio选中外观
+$checkbox:  url("") url("");//两个参数 checkbox默认外观 checkbox选中外观
+$selectbg:  url("") ;//select下拉按钮外观
+
+%formfix{
+  @extend %inputshow;
+
+  input[type=radio]{
+    @include cinput(nth($chsize,1),nth($chsize,2),nth($radiobg,1),nth($radiobg,2));
+  }
+
+  input[type=checkbox]{
+    @include cinput(nth($chsize,1),nth($chsize,2),nth($checkbox,1),nth($checkbox,2));
+  }
+
+  select{
+    height:23px;
+    background:$selectbg right center no-repeat;
+    border:1px solid #bbb;
+  }
+}
+
+//form实例
+##{$prefix}form{
+  @if $formFix{
+    @extend %formfix;
+  }
+}
+
+
+
+
+//表单元素CSS3动画
+%formAnimate{
+  @include transition(all 0.5s linear 0s);
+}
+//调整表单元素的盒模型为W3C标准模型
+%inputbox{
+  @extend %boxsizing-cb;
+}
+//表单元素的按钮
+//六个参数:按钮类型（背景色或者背景图） 背景 背景hover 字体颜色 字体hover 背景图位置
+@mixin formButton($type,$bg,$bgHover,$txt,$txtHover,$position:center center){
+  @if $type == "color"{
+    @include btn-color($bg,$txt,$bgHover,$txtHover);
+  }
+  @else if $type == "img"{
+    @include btn-image($bg,$txt,$position,$bgHover,$txtHover);
+  }
+}
+.form-button{
+
+}
+.form-submit{
+
+}
+.form-reset{
+
+}
+
+//label元素
+.form-label{
+  display: block;
+  margin-bottom:5px;
+}
+//表单标题
+@mixin formTile($align){
+  @include ib(middle);
+  text-align: $align;
+}
+.form-title{
+  @include formTile(right);
+}
+
+//text类型的表单:text,email,password等  .form-text
+
+@mixin tinput($width,$height,$border){//文本类输入框，三个参数：宽，高，边框
+  width:$width;
+  height:$height;
+  line-height: $height;
+  border:$border;
+}
+
+.form-text{
+  @include tinput(150px,20px,1px solid #bbb);
+}
+
+//radio,checkbox类型的表单 .form-radio .form-checkbox
+
+.form-radio,
+.form-checkbox{
+  vertical-align: middle;
+}
+
+//select表单 .form-select
+.form-select{
+
+}
+
+
+//file表单  .form-file
+$fileBgType:  "color";//file按钮类型
+$fileWidth:    70px;//file宽
+$fileHeight:   20px;//file高
+$fileBg: #fff #fff;//file按钮背景列表
+$fileTxt: #000 #000;//file字体列表
+$filePosition:center center;//file背景位置
+@mixin finput($fileType:$fileBgType){
+  width:$fileWidth;
+  height: $fileHeight;
+  position:relative;
+  overflow: hidden;
+  cursor: pointer;
+  @include formButton($fileType,nth($fileBg,1),nth($fileBg,2),nth($fileTxt,1),nth($fileTxt,2),$filePosition);
+
+  .form-file{
+    opacity: 0;
+    *filter: alpha(opacity=0);
+    width:$fileWidth;
+    height: $fileHeight;
+    position:absolute;
+    left:0;
+    right:0;
+  }
+}
+
+//textarea表单
+.form-area{
+  vertical-align: top;
+}
+
+
+
+

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+@if $bootstrap{
+
+}
+@else{
+
+}
+
+//bootstrap
+#wrapper{
+  margin:0 auto;
+  overflow: hidden;
+}
+#content,.content,#container{
+  max-width: $totle-width;/*宽度960加上inner-box左右margin相加，为最大宽度值*/
+  margin:0 auto;
+}
+
+
+//noraml
+##{$prefix}wrapper{
+  min-width:$main-width;
+  margin:0 auto;
+}
+
+##{$prefix}content{
+  width:$main-width;
+  margin:15px auto;
+}
+
+.inner{
+  overflow: hidden;
+  position:relative;
+}
+

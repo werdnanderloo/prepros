@@ -1,0 +1,34 @@
+- var prefix = "cT"
+//- toplist顶部列表
+mixin toplinList(txt)
+    li
+       a(href="#") #{txt}
+//- Use
+//- footer 底部列表
+
+mixin footDl(lists)
+    dl
+        each list,i in lists
+            case i
+                when 0
+                    dt: | #{list}
+                default
+                    dd: a(href="#") #{list}
+//- footer
+//- a
+mixin alink(cla,name)
+    a(class= cla,href="#")= name
+
+//- input
+mixin classInput(itype,iname,iclass,ivalue)
+    input(type= itype,name= iname,class= iclass,value= ivalue)
+
+mixin idInput(itype,iname,iid,ivalue)
+    input(type= itype,name= iname,id= iid,value= ivalue)
+
+mixin icInput(itype,iname,iclass,iid,ivalue)
+    input(type= itype,name= iname,class= iclass,id= iid,value= ivalue)
+//- 分栏
+
+
+

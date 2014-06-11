@@ -1,0 +1,127 @@
+@charset "UTF-8";
+//普通链接按钮
+//------------------------------------------------------------------
+//按钮大小@include btn-size(80px,30px,5px);三个参数分别是宽，高，圆角
+//------------------------------------------------------------------
+@mixin btn-size($width,$height,$radius:null){
+  @include ib;
+  width:$width;
+  @include theight($height);
+  text-align: center;
+  cursor: pointer;
+  @if $radius{
+    @extend %fixCSS3i;
+    @include border-radius($radius);
+  }
+}
+
+//按钮参数列表
+$btnColorClass: null !default;//颜色背景按钮列表
+                //(primary $primary darken($primary,10%)  #fff #fff )五个参数分别表示：按钮placeHolder名，（%btn-primary），默认背景色，hover背景色，默认字体色，hover字体色
+                //(default #000 #000  #fff #fff )
+$btnImg: null !default;//图片背景按钮列表
+            //(img1 url(../images/button1.jpg) url(../images/button2.jpg) (10px 10px) #fff #fff )六个参数分别表示：按钮placeHolder名（%btn-img1），默认背景图 ，hover背景图， 背景图片位置(spirit用)， 默认字体色， hover字体色
+            //(default url() url() (center center)  #fff #fff )
+
+
+
+//------------------------------------------------------------------
+//颜色背景按钮设定
+//------------------------------------------------------------------
+@mixin btn-color($bgColor,$textColor,$bgHover,$textHover){
+  color:$textColor;
+  background-color:$bgColor;
+
+  &:hover{
+    background-color: $bgHover;
+    color:$textHover;
+  }
+}
+@if $btnColorClass{
+  @each $colorClass in $btnColorClass{
+    $class:     nth($colorClass,1);
+    $btnBgColor:        nth($colorClass,2);
+    $btnBgHover:        nth($colorClass,3);
+    $textColor:         nth($colorClass,4);
+    $textHover:         nth($colorClass,5);
+
+    %btn-#{$class}{
+      @include btn-color($btnBgColor,$textColor,$btnBgHover,$textHover);
+    }
+  }
+}
+
+
+
+//------------------------------------------------------------------
+//图片背景按钮设定
+//------------------------------------------------------------------
+@mixin btn-image($bgImg,$textColor,$position,$bgHover,$textHover){
+  $bgPositionLeft:  nth($position,1);
+  $bgPositionTop:   nth($position,2);
+  color:$textColor;
+  background:$bgImg $bgPositionLeft $bgPositionTop no-repeat;
+
+  &:hover{
+    background-image:$bgHover;
+    color:$textHover;
+  }
+}
+//将$btnImg列表内容逐一列出其placeholder
+@if $btnImg{
+  @each $imgClass in $btnImg{
+    $class: nth($imgClass,1);
+    $btnBgImg:    nth($imgClass,2);
+    $btnBgHover:  nth($imgClass,3);
+    $btnBgPosition: nth($imgClass,4);
+    $btnImgTxt:   nth($imgClass,5);
+    $btnTxtHover: nth($imgClass,6);
+
+    %btn-#{$class}{
+      @include btn-image($btnBgImg,$btnImgTxt,$btnBgPosition,$btnBgHover,$btnTxtHover);
+    }
+  }
+}
+
+//普通按钮/背景按钮
+
+//.btnBlue{
+ // @extend %btn-primary;
+ // @include btn-size(80px,30px,15px);
+//}
+
+
+
+
+//---------------------------------------------
+//滑动门按钮
+//---------------------------------------------
+//滑动门background-list按钮背景列表
+$btnbg:    ();//(url(../images/button1.jpg) url(../images/button2.jpg))
+$btncolor: ();//(#fff #fff)
+
+//@include btnslide(31px,16px,$btnbg,$btncolor);参数分别为高，padding,背景图片（数组），字体颜色（数组）
+@mixin btnslide($height,$pad,$bg,$color){
+  @include ib();
+  height:$height;
+  padding-left:$pad;
+  background:nth($bg,1) left center no-repeat;
+
+  span{
+    @include ib();
+    @include theight($height);
+    padding-right:$pad;
+    background:nth($bg,1) right center no-repeat;
+    color:nth($color,1);
+  }
+
+  &:hover,
+  &:focus{
+    background-image:nth($bg,2);
+
+    span{
+      color:nth($color,2);
+      background-image:nth($bg,2);
+    }
+  }
+}

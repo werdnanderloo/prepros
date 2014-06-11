@@ -1,0 +1,101 @@
+@charset "UTF-8";
+$foot-column:   12 / 4;
+
+@mixin footer($col){
+  min-width:$main-width;
+  margin:0 auto;
+
+  .#{$prefix}dl{
+    width:100%;
+  }
+
+  footer{
+    width:100%;
+  }
+
+  .inner{
+    width:$main-width;
+    margin:0 auto;
+
+    .dlbox{
+      text-align: center;
+
+      li{
+        float:left;
+        display: inline;
+        width:grid-width($col);
+      }
+
+      dl{
+        padding:10px 0;
+      }
+
+      dt{
+        font-weight: bold;
+      }
+    }
+
+    p{
+      text-align: center;
+    }
+  }
+}
+//--------------------------------response footer------------------------
+@mixin resfooter($col){
+  width:100%;
+  margin:0 auto;
+
+  .#{$prefix}dl{
+    width:100%;
+  }
+
+  footer{
+    width:100%;
+  }
+
+  .inner{
+    max-width:#{$main-width};
+    width:100%;
+    margin:0 auto;
+
+    .dlbox{
+      text-align: center;
+
+      li{
+        float:left;
+        display: inline;
+        width:grid-width($col);
+
+        @media screen and ( max-width:600px){
+          &{
+            width:100%;
+          }
+        }
+      }
+
+      dl{
+        padding:10px 0;
+      }
+
+      dt{
+        font-weight: bold;
+      }
+    }
+
+    p{
+      text-align: center;
+    }
+  }
+}
+
+##{$prefix}footer{
+  @include resfooter($foot-column);
+
+  .#{$prefix}dl{
+    border-bottom:1px solid #000;
+  }
+
+  footer{
+    background:#f2f2f2;
+  }
+}

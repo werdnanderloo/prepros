@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+//盒子，三个参数:盒子宽度，每行高度，是否有边框
+@mixin itemBox($width,$theight,$border:false){
+  width:$width;
+  @if $border{
+    border:$border;
+  }
+  h3{
+    @include theight($theight);
+    span{
+      @include ib;
+    }
+  }
+}
+
+.item-box{
+  @include itemBox(300px,30px,1px solid $primary);
+  h3{
+    background:#ddd;
+  }
+}
+
+//纯文字标题列表，五个参数：每行标题链接宽度（超出省略号），每行高度，时间字体颜色，时间位置right，时间位置top
+@mixin txtList($awidth,$theight,$timeColor,$right,$top){
+  li{
+    @include theight($theight);
+    position:relative;
+  }
+  .list-title{
+    width:$awidth;
+    @include singleline-ellipsis;
+  }
+  .list-time{
+    position:absolute;
+    right:$right;
+    top:$top;
+    color:$timeColor;
+  }
+}
+
+#txtList{
+  width:250px;
+  @include txtList(200px,1.8em,#ddd,5px,3px);
+}
+
+//图文列表单元，四个参数：li宽度，li高度，图片宽度，图片高度
+@mixin imgList($itemWidth,$itemHeight,$imgWidth,$imgHeight){
+  li{
+    width:$itemWidth;
+    height: $itemHeight;
+    overflow: hidden;
+    position:relative;
+  }
+  .list-img{
+    @include aInner($imgWidth,$imgHeight,img);
+  }
+  .list-title{
+    display: block;
+  }
+}
+
+
+//图文列表，标题背景半透明单元，五个参数：图片宽度，图片高度，标题高度，标题背景，标题字体颜色
+@mixin alphaList($imgWidth,$imgHeight,$tHeight,$bgColor:rgba(0,0,0,.5),$txtColor:#fff){
+  li{
+    width:$imgWidth;
+    height:$imgHeight;
+    position:relative;
+    overflow: hidden;
+  }
+  .list-img{
+    @include aInner(100%,100%,img);
+  }
+  .list-title{
+    display: block;
+    width: 100%;
+    @include theight($tHeight);
+    @include bgcolor-alpha($bgColor,$txtColor);
+    z-index:999;
+    position:absolute;
+    bottom:0;
+  }
+}
+
+
+//图片左浮动列表，三个参数：图片宽度，图片高度，图片与其他元素之间间隔
+@mixin floatList($imgWidth,$imgHeight,$space){
+  li{
+    overflow: hidden;
+    position:relative;
+    @extend %clearfix;
+  }
+  .list-img{
+    @include aInner($imgWidth,$imgHeight,img);
+    @include float;
+  }
+  .list-title,.list-txt,blockquote{
+    display: block;
+    margin-left:$imgWidth + $space;
+  }
+}
+
+//分类选择列表：三个参数：分类题目宽度，分类题目高度，题目与类别间隔
+@mixin floatCate($tWidth,$tHeight,$space){
+  .list-li{
+    overflow: hidden;
+    position:relative;
+    @extend %clearfix;
+  }
+  .list-cate-title{
+    @include float;
+    @extend %ib;
+    width:$tWidth;
+    text-align: center;
+    @include theight($tHeight);
+  }
+  .list-cate{
+    margin-left:$tWidth + $space;
+    @extend %clearfix;
+  }
+  .list-cate-li{
+    @include float;
+
+    a{
+      display: block;
+      width: 100%;
+      line-height: $tHeight;
+    }
+  }
+}
+#imgList{
+  @include floatList(100px,100px,20px);
+}
+#cateExample{
+  @include floatCate(100px,25px,50px);
+}

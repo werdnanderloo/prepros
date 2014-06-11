@@ -1,0 +1,23 @@
+- var pageForm = false
+mixin pageList()
+    a(href="#",class="first") 首页
+        a(href="#",class="prev") 上一页
+        - for(var i=0; i<=5; i++)
+            case i
+                when 0
+                    a(href="#",class="cur") #{i+1}
+                default
+                    a(href="#") #{i+1}
+            a(href="#",class="next") 下一页
+            a(href="#",class="last") 尾页
+
+mixin pagenation()
+    .pagenation
+        if pageForm
+            form(action="",method="post")
+               +pageList
+               input(type="text",name="page",class="form-page")
+               input(type="submit",name="submit",class="form-submit",value="跳转")
+        else
+            +pageList
+

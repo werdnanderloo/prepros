@@ -1,0 +1,38 @@
+@charset "UTF-8";
+//三个参数：高度 背景色 右边按钮宽度
+@mixin topline($height,$bg,$toolBtnWidth){
+  min-width: $main-width;
+  width: 100%;
+  height: $height;
+  margin:0 auto;
+  background: $bg;
+
+  .inner{
+    width:$main-width;
+    margin:0 auto;
+  }
+  #top-wel,#top-tool{
+    @extend %clearfix;
+    li{
+      @include float;
+      line-height: $height;
+      a{
+        display: block;
+        text-align: center;
+        @include theight($height);
+      }
+    }
+  }
+  #top-wel{
+    @include float;
+  }
+  #top-tool{
+    @include float(right);
+    a{
+      width:$toolBtnWidth;
+    }
+  }
+}
+
+//#topline{@include topline(30px,#ccc,80px);}
+

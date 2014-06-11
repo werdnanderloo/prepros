@@ -1,0 +1,63 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'icomoon';
+  src:url('../icon/icomoon.eot?nx1ttj');
+  src:url('../icon/icomoon.eot?#iefixnx1ttj') format('embedded-opentype'),
+  url('../icon/icomoon.woff?nx1ttj') format('woff'),
+  url('../icon/icomoon.ttf?nx1ttj') format('truetype'),
+  url('../icon/icomoon.svg?nx1ttj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'bootstrap';
+  src:url('../icon/glyphicons-halflings-regular.eot?nx1ttj');
+  src:url('../icon/glyphicons-halflings-regular.eot?#iefixnx1ttj') format('embedded-opentype'),
+  url('../icon/glyphicons-halflings-regular.woff?nx1ttj') format('woff'),
+  url('../icon/glyphicons-halflings-regular.ttf?nx1ttj') format('truetype'),
+  url('../icon/glyphicons-halflings-regular.svg?nx1ttj#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+%icon{
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+%boot-icon{
+  font-family: 'bootstrap';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#iconbox{
+  @extend %icon;
+  span{
+    padding:3px;
+  }
+}
+#iconboxBoot{
+  @extend %boot-icon;
+  span{
+    padding:3px;
+  }
+}
+

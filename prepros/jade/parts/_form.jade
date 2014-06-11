@@ -1,0 +1,60 @@
+mixin formBox()
+    form#forms(action="",method="post")
+        if block
+            block
+
+mixin fieldBox(legName)
+    fieldset
+        legend #{legName}
+        if block
+            block
+
+//- form item box
+mixin formItemBox(ititle)
+    .form-label
+        label
+            span.form-title #{ititle}
+            if block
+                block
+
+//- input text
+mixin textInput(ititle,iname,iid)
+    +formItemBox(ititle)
+          +icInput("text",iname,"form-text",iid,"")
+//- input password
+mixin pswInput(ititle,iname,iid)
+    +formItemBox(ititle)
+            +icInput("password",iname,"form-text",iid,"")
+
+//- input radio
+- var radioList = ["radio1","radio2","radio3"]
+
+mixin radioInput(ititle,iname,items)
+    +formItemBox(ititle)
+        each item,i in items
+            label
+              +classInput("radio",iname,"form-radio",i)
+              | #{item}
+
+//- input checkbox
+- var checkList = ["checkbox1","checkbox2","checkbox3"]
+mixin checkInput(ititle,iname,items)
+    +formItemBox(ititle)
+        each item,i in items
+            label
+                +classInput("checkbox",iname,"form-checkbox",i)
+                | #{item}
+//- select
+- var selectList = ["option1","option2","option3"]
+
+mixin selectBox(ititle,iname,items)
+    +formItemBox(ititle)
+        select(class="form-select",name= iname)
+            each item,i in items
+                option(value= i)
+                    | #{item}
+
+//- textarea
+mixin textareaBox(ititle,ianme)
+    +formItemBox(ititle)
+        textarea(class="form-textarea",name= iname)

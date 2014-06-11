@@ -1,0 +1,64 @@
+| <!DOCTYPE html>
+//
+   | saved from url=(0014)about:internet
+// if lt IE 7
+    <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+// if IE 7
+    <html class="no-js lt-ie9 lt-ie8">
+// if IE 8
+    <html class="no-js lt-ie9">
+// if gt IE 8
+    <!--> <html class="no-js"> <!--
+head
+    meta(charset="utf-8")
+    meta(name="viewport",content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible",content="IE=edge")
+    block title
+        title layout
+    - var styles = ["style/bootstrap.css","style/style.css"]
+    each style in styles
+        link(rel="stylesheet", href=style)
+    // if lte IE 8
+        - var iejss = ["script/prefix/html5shiv.js","script/prefix/respond.min.js","script/prefix/minmax.js"]
+        each iejs in iejss
+            script(src=iejs)
+body
+    include _variable
+    - var contentId = prefix + "content"
+    - var wrapperId = prefix + "wrapper"
+    include _topline
+    include _header
+    include _nav
+    include _footer
+    include _crumb
+    include _pagenation
+    include _list
+    include _form
+    include _table
+    include _ext
+
+    div(id= wrapperId)
+        +topline
+        +header
+        +nav
+        div(id= contentId)
+            block content
+            block layout
+                #layout
+                    #main
+                        .inner
+                         block main
+                    #side
+                        .inner
+                        block side
+
+        +footer
+    include _script
+    block script
+        script
+            //<![CDATA[
+
+
+            //--><!]]>
+| </html>
+

@@ -1,0 +1,21 @@
+- var navId = prefix + "nav"
+- var ulArr = {"lv1-1":{"child":["liv2-1","lv2-1","lv2-1","lv2-1"]},"lv1-2":{"child":["liv2-1","lv2-1","lv2-1","lv2-1"]},"lv1-3":{"child":["liv2-1","lv2-1","lv2-1","lv2-1"]},"lv1-4":{"child":[]}}
+
+
+
+mixin navUl()
+    ul.navMainUL
+        each user,key in ulArr
+            li.nmLI
+                a(href="#", class="nmA") #{key}
+                if user.child.length
+                 ul.nmUL-L2
+                    each role in user.child
+                        li(class="nmLI-L2"): a(href="#",class="nmA-L2") #{role}
+
+
+mixin nav()
+    nav(id= navId,role="navigation")
+        div.inner
+            +navUl
+

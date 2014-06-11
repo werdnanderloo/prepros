@@ -1,0 +1,57 @@
+//- box mixin
+mixin box(id,title)
+    div(id= id,class="item-box")
+        h3
+          span #{title}
+        .item-con
+            if block
+                block
+            else
+                p
+
+//- end
+
+//- list mixin
+
+//- 总体列表
+mixin fullList(id,img,title,blockq,price,time,btn,txt,num,isrc)
+    ul.item-list(id= id)
+        - for(var i=1;i<=num;i++)
+            li
+              if img
+                  a(href="#",class="list-img"): img(src= isrc)
+              if title
+                  +alink("list-title","列表标题名称")
+              if blockq
+                  blockquote
+                        p | 表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介，列表内容简介
+              if price
+                  span.list-price: |￥<b>99</b>
+                  span.list-old-price: |￥100
+              if time
+                  span.list-time: |2014-05-26
+              if btn
+                   +alink("list-button","按钮")
+              if txt
+                  .list-txt
+                       span
+
+
+//- 文字标题列表
+mixin  txtList(id,num)
+    +fullList(id,false,true,false,false,true,false,false,num,"")
+//- 图文列表
+mixin imgList(id,num,isrc)
+    +fullList(id,true,true,true,false,false,false,false,num,isrc)
+
+//- 分类选项
+- var cateArr = {"选项名称1":{"child":["选项","选项","选项","选项"]},"选项名称2":{"child":["选项","选项","选项","选项"]},"选项名称3":{"child":["选项","选项","选项","选项"]}}
+mixin cateList(id)
+    ul.item-list(id= id)
+       each user,key in cateArr
+            li.list-li
+                span.list-cate-title #{key}
+                ul.list-cate
+                    each role in user.child
+                        li(class="list-cate-li"): a(href="#") #{role}
+

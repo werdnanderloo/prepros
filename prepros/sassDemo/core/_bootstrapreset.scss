@@ -1,0 +1,107 @@
+@charset "UTF-8";
+@-webkit-viewport   { width: device-width; }
+@-moz-viewport      { width: device-width; }
+@-ms-viewport       { width: device-width; }
+@-o-viewport        { width: device-width; }
+@viewport           { width: device-width; }
+
+
+.col-per-5,.col-per-8{
+  overflow: hidden;
+}
+
+/*------------------------------------------------
+
+bootstrap重置
+
+--------------------------------------------------*/
+
+.container-fluid {
+padding-right:0;
+padding-left: 0;
+
+}
+.row {
+margin-right:0;
+margin-left:0;
+@extend %clearfix;
+}
+.glyphicon-chevron-left:before {
+  content:"";
+}
+.glyphicon-chevron-right:before {
+  content:"";
+}
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-right:0;
+  padding-left:0;
+  overflow: hidden;
+  *position:relative;
+}
+
+/*幻灯重置*/
+.carousel{
+  .item{
+    img{
+      display: block;
+      margin:0 auto;
+    }
+  }
+}
+.glyphicon{
+  @extend %icon;
+  color:#fff;/*轮播图左右按钮颜色*/
+  &:hover{
+    color:#999;/*轮播图左右按钮颜色hover*/
+  }
+}
+
+
+/*导航条重置*/
+
+.navbar{
+  margin-bottom:0;
+  border:0 none;
+}
+.navbar-header{
+  position:relative;
+}
+.navbar-toggle{
+  margin-right: 20px;
+}
+.navbar-default{
+  background:none;
+}
+.navbar-nav{
+  margin-top:0;
+}
+.container > .navbar-header, .container-fluid > .navbar-header, .container > .navbar-collapse, .container-fluid > .navbar-collapse{
+  margin-left:0;
+  margin-right:0;
+}
+
+/*底部*/
+.footer{
+  width:100%;
+  overflow: hidden;
+
+}
+/*媒体查询增加*/
+@media (min-width: 992px) {
+  .col-per-5 {
+    width: 20%;
+    float: left;
+  }
+  .col-per-8 {
+    width: 12.5%;
+    float: left;
+  }
+}
+
+/*左右margin*/
+.row .ml-z{
+  margin-left:0;
+}
+.row .mr-z{
+  margin-right:0;
+}

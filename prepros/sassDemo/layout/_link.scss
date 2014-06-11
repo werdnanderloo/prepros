@@ -1,0 +1,58 @@
+@charset "UTF-8";
+//指示图标开关
+$icon:  false;
+
+@mixin hover(){
+  &:hover,
+  &:focus{
+    @content;
+  }
+}
+
+@mixin link-type($color,$link-icon-bg:null,$hoverColor:null){
+  display: inline-block;
+  *display: inline;
+  *zoom:1;
+  color:$color;
+  position:relative;
+  @if $hoverColor != null{
+    &:hover,
+    &:focus,
+    &:active{
+      color:$hoverColor;
+    }
+  }@else{
+    &:hover,
+    &:focus,
+    &:active{
+      color:$color;
+    }
+  }
+
+  @if $icon == true and $link-icon-bg != null {
+    background:$link-icon-bg;
+  }
+}
+
+@mixin link-msg($txtColor,$bg,$width,$height,$top){
+  content:attr(data-tooltip-msg);
+  color:$txtColor;
+  background:$bg;
+  z-index: 99;
+  width:$width;
+  position:absolute;
+  top:$top;
+  left:50%;
+  margin-left:-$width / 2;
+  @include theight($height);
+}
+
+//.link{
+ // @include link-type($orange,"",$primary);
+  //margin:50px;
+//}
+
+//.link[data-link-type="message"]:hover:after, .toolTipMessage{
+  //@include link-msg(#fff,#14699f,100px,25px,-25px);
+  //text-align: center;
+//}

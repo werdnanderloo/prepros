@@ -1,0 +1,22 @@
+@charset "utf-8";
+/*响应式模块内DIV设置*/
+.inner-box{
+  border:bd($primary);/*边框*/
+  margin:5px $innerBoxMargin;/*margin用来增加间隔*/
+  /*min-height: 250px;最小高度，视觉对齐*/
+}
+
+.row{
+  div{
+    @include theight(30px);
+    background:#eee;
+  }
+}
+
+
+
+
+
+
+
+

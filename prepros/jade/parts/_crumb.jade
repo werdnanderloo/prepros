@@ -1,0 +1,13 @@
+- var crumbId = prefix + "crumb"
+- var crumbArr = ["首页","一级栏目","二级栏目"]
+mixin crumb()
+    div(id= crumbId)
+        span 您所在的位置
+        each crumb,i in crumbArr
+            case i
+                when 0: a(href="#",id="crumb-home") #{crumb}
+                default
+                    |&gt;
+                    a(href="#") #{crumb}
+
+

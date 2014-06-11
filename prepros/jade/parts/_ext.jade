@@ -1,0 +1,27 @@
+//- 焦点图slider
+mixin sliderList(num)
+    - for(var i=0;i<num;i++)
+        .slide-item
+            if block
+                block
+
+mixin slider(num)
+    ul.slide-btn
+    +alink("prev","<")
+    +alink("next",">")
+    +sliderList(num)
+        if block
+            block
+
+
+//- 选项切换tab
+- var tabList=["tab1","tab2","tab3"]
+mixin tab(iid,items)
+    div(id= iid)
+        .tab-btn
+            each item in items
+                span(class="tab-button")  #{item}
+        each item in items
+            .tab-con
+                if block
+                    block

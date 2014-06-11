@@ -1,0 +1,16 @@
+- var footerId = prefix + "footer"
+- var footerP = prefix + "p"
+- var footerDl = prefix + "dl"
+- var footerList = [["服务标题","服务列表","服务列表","服务列表","服务列表"],["服务标题","服务列表","服务列表","服务列表","服务列表"],["服务标题","服务列表","服务列表","服务列表","服务列表"],["服务标题","服务列表","服务列表","服务列表","服务列表"]]
+
+mixin footer()
+    div(id= footerId)
+        div(class= footerDl)
+            div.inner
+                ul.dlbox
+                    each flist in footerList
+                        li: +footDl(flist)
+        footer(class= footerP,role="contentinfo")
+            div.inner
+                p 版权XXX所有
+

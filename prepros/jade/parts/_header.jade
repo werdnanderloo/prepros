@@ -1,0 +1,24 @@
+- var headerId = prefix + "header"
+- var webName = "网站logo"
+mixin header()
+    header(id=headerId,role="banner")
+        div.inner
+            h1
+                a(href="#") #{webName}
+            if block
+                block
+
+
+mixin headForm(prev,drop)
+    #head-form
+        form(action="",method="post")
+            if prev
+             .search-cate
+                span#cate-name: | 所有
+                 if drop
+                    ul
+                        li: | 所有
+            +classInput("text","search","form-search","")
+            +classInput("submit","searchsub","form-submit","")
+
+

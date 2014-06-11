@@ -1,0 +1,17 @@
+- var tableList = ["标题1","标题2","标题3","标题4","标题5"]
+- var tdList = ["内容1","内容2","内容3","内容4","内容5"]
+mixin tableBox(iclass,iid,cap,col,items,tditems)
+    table(id= iid,class= iclass,cellspacing=0)
+        caption #{cap}
+        thead
+          tr
+            each item,i in items
+                - var thid = "th" + i
+                th(id= thid) #{item}
+        tbody
+            - for(var i=0;i<col;i++)
+                tr
+                   each item in tditems
+                       td #{item}
+
+

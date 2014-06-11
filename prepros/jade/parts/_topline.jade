@@ -1,0 +1,13 @@
+- var leftArr = ["欢迎来到XXX站"]
+- var rightArr = ["登录","注册","会员中心"]
+mixin topline()
+    div#topline
+        div.inner
+            ul#top-wel
+                each left in leftArr
+                    +toplinList(left)
+            ul#top-toll
+                each right in rightArr
+                    +toplinList(right)
+
+

@@ -1,0 +1,631 @@
+@charset "UTF-8";
+//====================
+//css3mixin
+//====================
+
+$prefix-for-webkit:   true !default;
+$prefix-for-mozilla:   true !default;
+$prefix-for-microsoft:   true !default;
+$prefix-for-opera:   true !default;
+$prefix-for-spec:   true !default;
+//浏览器前缀
+@mixin bprefixer($property,$value,$prefixes){
+  @each $prefix in $prefixes{
+
+    @if $prefix == webkit and $prefix-for-webkit == true{
+      -webkit-#{$property}:$value;
+    }
+    @else if $prefix == moz and $prefix-for-mozilla == true{
+      -moz-#{$property}:$value;
+    }
+    @else if $prefix == ms and $prefix-for-microsoft == true{
+      -ms-#{$property}:$value;
+    }
+    @else if $prefix == o and $prefix-for-opera == true{
+      -o-#{$property}:$value;
+    }
+    @else if $prefix == spec and $prefix-for-spec == true {
+      #{$property}: $value;
+    }
+    @else {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+
+  }
+}
+
+//transform
+@mixin transform($property...){
+  @include bprefixer(transform,$property,webkit moz ms o spec);
+}
+
+@mixin transform-origin($axes...){
+  @include bprefixer(transform-origin,$axes,webkit moz ms o spec);
+}
+
+@mixin skew($degrees...) {
+  @include bprefixer(transform, skew($degrees), webkit moz o ms spec);
+  -webkit-backface-visibility: hidden;
+}
+//3D transform
+@mixin transform3D($prop:preserve-3d){
+  @include bprefixer(transform-style,$prop,webkit moz spec);
+}
+@mixin perspective($perspective){
+  @include bprefixer(perspective,$perspective,webkit moz o ms spec);
+}
+
+//---------------------任意对称轴都可以用y=k*x直线表示。则matrix表示就是：matrix((1-k^2)/(1+k^2),2k / (1 + k^2),2k/(1+k^2),(k^2-1)/(1+k^2),0,0)
+//---------------------镜像，以Y轴对称，k==0
+
+
+@mixin matrix($matrix...){
+  @include bprefixer(transform,matrix($matrix),webkit moz o ms spec);
+}
+
+@mixin transform-style($style){
+  @include bprefixer(transform-style,$style,webkit moz o ms spec);
+}
+
+@mixin perspective($persp){
+  @include bprefixer(perspective,$persp,webkit moz o ms spec);
+}
+
+//transition
+@function transition-property-name($prop, $vendor: false) {
+  // put other properties that need to be prefixed here aswell
+  @if $vendor and $prop == transform {
+    @return unquote('-'+$vendor+'-'+$prop);
+  }
+  @else {
+    @return $prop;
+  }
+}
+@function transition-property-names($props, $vendor: false) {
+  $new-props: ();
+  @each $prop in $props {
+    $new-props: append($new-props, transition-property-name($prop, $vendor), comma);
+  }
+  @return $new-props;
+}
+
+@mixin transition($property...){
+  @if length($property) >= 1{
+    @include bprefixer(transition,$property,webkit moz ms o spec);
+  }
+  @else{
+    $property:all 0.15s ease-out 0s;
+    @include bprefixer(transition,$property,webkit moz ms o spec);
+  }
+}
+
+//boxshadow
+@mixin box-shadow($property...){
+  @include bprefixer(box-shadow,$property,webkit moz ms o spec);
+}
+
+//border-radius
+@mixin border-radius($radius:5px){
+  @include bprefixer(border-radius,$radius,webkit moz ms o spec);
+}
+
+//text-shadow
+@mixin text-shadow($shadow...){
+  @include bprefixer(text-shadow,$shadow,webkit moz ms o spec);
+}
+
+//border-image
+@mixin border-image($image...){
+  @include bprefixer(border-image,$image,webkit moz ms o spec);
+}
+
+//text-overflow
+@mixin text-overflow($overflow){
+  @include bprefixer(text-overflow,$overflow,moz o spec);
+}
+//background-size
+@mixin background-size-full($url){
+  @include bprefixer(background-size,cover,webkit moz ms  o spec);
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(
+      src=$url,
+      sizingMethod='scale');
+}
+
+//background-clip
+@mixin background-clip($clip){
+  @if $clip == border-box{
+    -moz-background-clip:border;
+  }
+  @else if $clip == padding-box{
+    -moz-background-clip:padding;
+  }
+
+  @include bprefixer(background-clip,$clip,webkit o spec);
+
+}
+
+//aniamtionCSS3动画
+
+// Adds keyframes blocks for supported prefixes, removing redundant prefixes in the block's content
+@mixin disable-prefix-for-all() {
+  $prefix-for-webkit: false;
+  $prefix-for-mozilla: false;
+  $prefix-for-microsoft: false;
+  $prefix-for-opera: false;
+}
+@mixin keyframes($name, $prefixes) {
+  $original-prefix-for-webkit: $prefix-for-webkit;
+  $original-prefix-for-mozilla: $prefix-for-mozilla;
+  $original-prefix-for-microsoft: $prefix-for-microsoft;
+  $original-prefix-for-opera: $prefix-for-opera;
+
+  @each $prefix in $prefixes {
+    @if $prefix == webkit and $original-prefix-for-webkit == true {
+      @include disable-prefix-for-all();
+      $prefix-for-webkit: true;
+      @-webkit-keyframes #{$name} {
+        @content;
+      }
+    }
+    @if $prefix == moz and $original-prefix-for-mozilla == true {
+      @include disable-prefix-for-all();
+      $prefix-for-mozilla: true;
+      @-moz-keyframes #{$name} {
+        @content;
+      }
+    }
+    @if $prefix == ms and $original-prefix-for-microsoft == true {
+      @include disable-prefix-for-all();
+      $prefix-for-microsoft: true;
+      @-ms-keyframes #{$name} {
+        @content;
+      }
+    }
+    @if $prefix == o and $original-prefix-for-opera == true {
+      @include disable-prefix-for-all();
+      $prefix-for-opera: true;
+      @-o-keyframes #{$name} {
+        @content;
+      }
+    }
+    @if $prefix == spec {
+      @include disable-prefix-for-all();
+      @keyframes #{$name} {
+        @content;
+      }
+    }
+  }
+
+  $prefix-for-webkit: $original-prefix-for-webkit;
+  $prefix-for-mozilla: $original-prefix-for-mozilla;
+  $prefix-for-microsoft: $original-prefix-for-microsoft;
+  $prefix-for-opera: $original-prefix-for-opera;
+}
+
+@mixin animation($anima...){
+  @include bprefixer(animation,$anima,webkit moz spec);
+}
+
+// Gradients渐变
+//-----------------------------------------------------
+// 水平渐变，从左往右
+// @include gradient-horizontal(#333, #ccc);
+@mixin gradient-horizontal($gradient...){
+  background-image: -moz-linear-gradient(left, $gradient); // FF 3.6+
+  background-image: -webkit-linear-gradient(left, $gradient); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(left, $gradient); // Opera 11.10
+  background-image: linear-gradient(to right, $gradient); // Standard, IE10
+}
+// 垂直渐变，从上往下
+// @include gradient-vertical(#333 30%, #ccc);
+@mixin gradient-vertical($gradient...) {
+  background-image: -moz-linear-gradient(top, $gradient); // FF 3.6+
+  background-image: -webkit-linear-gradient(top, $gradient); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient(top, $gradient); // Opera 11.10
+  background-image: linear-gradient(to bottom, $gradient); // Standard, IE10
+}
+// 角度渐变
+// @include gradient-directional(45deg, #333 30%, #ccc);
+@mixin gradient-directional($gradient...) {
+  background-image: -moz-linear-gradient($gradient); // FF 3.6+
+  background-image: -webkit-linear-gradient($gradient); // Safari 5.1+, Chrome 10+
+  background-image: -o-linear-gradient($gradient); // Opera 11.10
+  background-image: linear-gradient($gradient); // Standard, IE1
+}
+// 径向渐变
+@mixin gradient-radial($gradient...){
+  background-image: -moz-radial-gradient($gradient); // FF 3.6+
+  background-image: -webkit-radial-gradient($gradient); // Safari 5.1+, Chrome 10+
+  background-image: -o-radial-gradient($gradient); // Opera 11.10
+  background-image: radial-gradient($gradient); // Standard, IE1
+  background-repeat: no-repeat;
+}
+//----------------------------------------------------------
+
+//appearance
+@mixin appearance($appearance){
+  @include bprefixer(appearance,$appearance,webkit  spec);
+}
+
+//---------------------------------------------------------
+//box-sizing
+//------------------------------------------------------
+@mixin boxsizing($box){
+  @include bprefixer(box-sizing,$box,webkit moz o ms spec);
+}
+
+%boxsizing-cb{
+  @include boxsizing(content-box);
+}
+
+%boxsizing-bd{
+  @include boxsizing(border-box);
+}
+
+
+//--------------------------------------------------------
+//flexbox弹性盒子模型
+//--------------------------------------------------------
+
+
+//openFlexbox
+@function flexbox($flex,$type){
+  $old:box;
+  $multi:flexbox;
+  $new:$flex;
+
+  @if $flex == flex{
+    $old:box;
+    $multi:flexbox;
+    $new:$flex;
+  }
+  @else if $flex == inline-flex{
+    $old:inline-box;
+    $multi:inline-flexbox;
+    $new:$flex;
+  }
+
+  @if $type == moz{
+    @return -moz-#{$old};
+  }
+  @else if $type == webkit1 {
+    @return -webkit-#{$old};
+  }
+  @else if $type == webkit2 {
+    @return -webkit-#{$new};
+  }
+  @else if $type == ms {
+    @return -ms-#{$multi};
+  }
+
+}
+
+@mixin flexbox($flex){
+  // flex | inline-flex
+  display: flexbox($flex,webkit1);
+  display: flexbox($flex,webkit2);
+  display: flexbox($flex,moz);
+  display: flexbox($flex,ms);
+  display: flex;
+}
+
+//justify-content 主轴对齐方式：指定伸缩项目沿主轴对齐方式
+@function justifyContent($justy,$type){
+
+  $old:#{$justy};
+  $new:flex-#{$justy};
+
+  @if($justy == center){
+    $new:#{$justy};
+  }
+
+  @if $justy == space-between{
+    $new:$justy;
+    $old:justify;
+  }
+  @if $justy == space-around{
+    $new:$justy;
+    $old : distribute;
+  }
+
+  @if($type == old){
+    @return $old;
+  }
+  @else if ($type == new){
+    @return $new;
+  }
+}
+
+@mixin justifyContent($justy,$prefixes){
+  // start | end | center | space-between | space-around
+  @each $prefix in $prefixes{
+    @if $prefix == old{
+      -webkit-box-pack:justifyContent($justy,old);
+      -moz-box-pack:justifyContent($justy,old);
+    }
+    @else if $prefix == multi{
+      -ms-flex-pack:justifyContent($justy,old);
+    }
+    @else if $prefix == new{
+      -webkit-justify-content:justifyContent($justy,new);
+      justify-content:justifyContent($justy,new);
+    }
+  }
+}
+
+//align-items 侧轴对齐方式：指定伸缩项目沿侧轴对齐方式
+@function alignItems($align,$type){
+  $old:#{$align};
+  $new:flex-#{$align};
+
+  @if $align == center or $align == baseline or $align == stretch{
+    $new:#{$align};
+  }
+
+  @if($type == old){
+    @return $old;
+  }
+  @else if ($type == new){
+    @return $new;
+  }
+}
+
+@mixin alignItems($align,$prefixes){
+  // start | end | center | baseline | stretch
+  @each $prefix in $prefixes{
+    @if $prefix == old {
+      -webkit-box-align:alignItems($align,old);
+      -moz-box-align:alignItems($align,old);
+    }
+    @else if $prefix == multi {
+      -ms-flex-align:alignItems($align,old);
+    }
+    @else if $prefix == new {
+      -webkit-align-items:alignItems($align,new);
+      align-items:alignItems($align,new);
+    }
+  }
+}
+
+//align self 单个伸缩项目侧轴对齐方式
+@function alignSelf($align,$type){
+  $old:#{$align};
+  $new:flex-#{$align};
+
+  @if $align == center or $align == baseline or $align == stretch{
+    $new:#{$align};
+  }
+
+  @if($type == old){
+    @return $old;
+  }
+  @else if ($type == new){
+    @return $new;
+  }
+}
+
+@mixin alignSelf($align,$prefixes){
+  // auto | start | end | center | baseline | stretch
+  @each $prefix in $prefixes{
+    @if $prefix == old{
+      -ms-flex-item-align:alignSelf($align,old);
+    }
+    @else if $prefix == new{
+      -webkit-align-slef:alignSelf($align,new);
+      align-self:alignSelf($align,new);
+    }
+  }
+}
+
+//align content 伸缩项目行对齐方式：指定伸缩项目行在侧轴的对齐方式
+@function alignContent($align,$type){
+  $old:#{$align};
+  $new:flex-#{$align};
+
+  @if $align == center or $align == stretch{
+    $new:#{$align};
+  }
+
+  @if $align ==  space-between{
+    $old:justify;
+  }
+
+  @if $align ==  space-around{
+    $old:distribute;
+  }
+
+  @if($type == old){
+    @return $old;
+  }
+  @else if ($type == new){
+    @return $new;
+  }
+}
+
+@mixin alignContent($align,$prefixes){
+  // stretch | start | end | center | space-between | space-around
+  @each $prefix in $prefixes{
+    @if $prefix == old{
+      -ms-flex-line-pack:alignContent($align,old);
+    }
+    @else if $prefix == new{
+      -webkit-align-content:alignContent($align,new);
+      align-content:alignContent($align,new);
+    }
+  }
+}
+
+//order 显示顺序：指定伸缩项目的顺序
+@mixin order($num){
+  order:$num;
+  -webkit-box-ordinal-group: $num;   /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-ordinal-group: $num;      /* OLD - Firefox 19- */
+  -ms-flex-order: $num;              /* TWEENER - IE 10 */
+  -webkit-order: $num;
+}
+
+//flex 伸缩性：指定伸缩项目如何伸缩尺寸
+@mixin flex($num){
+  //initial | auto | none | number
+  -webkit-box-flex: $num;      /* OLD - iOS 6-, Safari 3.1-6 */
+  -moz-box-flex: $num;         /* OLD - Firefox 19- */
+  -webkit-flex: $num;          /* Chrome */
+  -ms-flex: $num;              /* IE 10 */
+  box-flex:$num;
+  flex: $num;                  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+
+}
+
+//flex direction 伸缩流：指定伸缩容器主轴的伸缩流方向
+@function flexDirection($dir,$type){
+  $new:#{$dir};
+  $old1:#{$dir};
+  $old2:#{$dir};
+
+  @if $new == row {
+    $old1:normal;
+    $old2:horizontal;
+  }
+  @else if $new == row-reverse{
+    $old1:reverse;
+    $old2:horizontal;
+  }
+  @else if $new == column{
+    $old1:normal;
+    $old2:vertical;
+  }
+  @else if $new == column-reverse{
+    $old1:reverse;
+    $old2:vertical;
+  }
+
+  @if $type == old1{
+    @return $old1;
+  }
+  @else if $type == old2{
+    @return $old2;
+  }
+  @else if $type == new{
+    @return $new;
+  }
+}
+
+@mixin flexDirection($dir,$prefixes){
+  // row | row-reverse | column | column-reverse
+  @each $prefix in $prefixes{
+    @if $prefix == old{
+      -webkit-box-direction:flexDirection($dir,old1);
+      -webkit-box-orient:flexDirection($dir,old2);
+      -moz-box-direction:flexDirection($dir,old1);
+      -moz-box-orient:flexDirection($dir,old2);
+    }
+    @else if $prefix == new{
+      -ms-flex-direction:flexDirection($dir,new);
+      -webkit-flex-direction:flexDirection($dir,new);
+      flex-direction:flexDirection($dir,new);
+    }
+  }
+}
+
+//flex wrap 换行：指定伸缩项目是否沿着侧轴排列
+@function flexWrap($wrap,$type){
+  $old:$wrap;
+  $new:$wrap;
+
+  @if $wrap == nowrap{
+    $old:single;
+  }
+  @else if $wrap == wrap{
+    $old:multiple;
+  }
+
+  @if $type == old{
+    @return $old;
+  }
+  @else if $type == new {
+    @return $new;
+  }
+}
+
+@mixin flexWrap($wrap,$prefixes){
+  // nowrap | wrap | wrap-reverse
+  @each $prefix in $prefixes{
+    @if $prefix == old{
+      -webkit-box-lines:flexWrap($wrap,old);
+      -moz-box-lines:flexWrap($wrap,old);
+      box-lines:flexWrap($wrap,old);
+    }
+    @else if $prefix == new{
+      -ms-flex-wrap:flexWrap($wrap,new);
+      -webkit-flex-wrap:flexWrap($wrap,new);
+      flex-wrap:flexWrap($wrap,new);
+    }
+
+  }
+}
+
+
+// filter
+//-----------------------------------------------------
+@mixin filter($function...){
+  // <filter-function> [<filter-function>]* | none
+  @include bprefixer(filter, $function, webkit moz);
+}
+
+@mixin filter-blur($px){
+  @include bprefixer(filter, blur($px), webkit moz);
+}
+
+@mixin filter-grayscale($percent: 100%){
+  @include bprefixer(filter, grayscale($percent), webkit moz);
+}
+
+@mixin filter-drop-shadow($shadow...){
+  @include bprefixer(filter, drop-shadow($shadow), webkit moz);
+}
+
+// @include url("filepath");
+@mixin filter-url($url){
+  @include bprefixer(filter, url(#{$url}), webkit moz);
+}
+
+@mixin filter-brightness($value: 0.5){
+  @include bprefixer(filter, brightness($value), webkit moz);
+}
+
+@mixin filter-contrast($value){
+  @include bprefixer(filter, contrast($value), webkit moz);
+}
+
+@mixin filter-hue-rotate($value: 90deg){
+  @include bprefixer(filter, hue-rotate($value), webkit moz);
+}
+
+@mixin filter-invert($value: 100%){
+  @include bprefixer(filter, invert($value), webkit moz);
+}
+
+@mixin filter-opacity($value){
+  @include bprefixer(filter, opacity($value), webkit moz);
+}
+
+@mixin filter-saturate($value){
+  @include bprefixer(filter, saturate($value), webkit moz);
+}
+
+@mixin filter-sepia($value: 100%){
+  @include bprefixer(filter, sepia($value), webkit moz);
+}
+
+
+//prefix IE浏览器修复
+%fixCSS3{
+  behavior: url(../script/prefix/PIE.htc);
+  position:relative;
+  z-index: 199;
+}
+%fixCSS3i{
+  behavior: url(PIE.htc);
+  position:relative;
+  z-index: 199;
+}
